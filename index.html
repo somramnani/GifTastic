@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title></title>
+  <title>Gif Tastic</title>
 
   <!-- **************Bootstrap Links************** -->
     
@@ -15,7 +15,7 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
   <!-- AJAX library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
@@ -26,6 +26,22 @@
   <link rel="stylesheet" href="assets/css/style.css" >
 </head>
 <body>
+    <div class="container">
+      <h1>Artist Search</h1>
+      <!-- Rendered Buttons will get Dumped Here  -->
+      <div id="buttons-view"></div>
+
+        <form id="name-form">
+          <label for="name-input">Add a Movie, Yo!</label>
+          <input type="text" id="name-input"><br>
+    
+          <!-- Button triggers new movie to be added -->
+          <input id="add-name" type="submit" value="Add a Name">
+          <div id="gifs-appear-here">
+          </div>
+        </form>
+    
+
     
 
 
