@@ -2,75 +2,126 @@
 //GLOBAL VARIABLES
 //__________________________________________________________
 
-var names = ["Drake", "Chance the Rapper", "Kendrick Lamar"]
+var names = ["Superman", "Batman", "Wonder-Woman", "Green Arrow", "Iron Man", "Spider-Man", "Deadpool"];
 
-function showArtistName(){
-  var dataAttribute = $(this).attr('data-name');
-  alert(dataAttribute);
-}
-
-
+// A function that creates the buttons 
 function renderButtons(){
   $("#buttons-view").empty();
-
+  
+  // Loops through the names array and creates the buttons.
   for(let i = 0; i < names.length; i++){
+    
+    // Grabs one value from the array and saves it as a variable.
     var name = names[i];
+    
+    // Creates a button  
     var button = $("<button>");
+    
+    // Adds the a class called name to the buttons.
     button.addClass("name");
+    
+    // Sets the data-name to each individual name from the names array
     button.attr("data-name", name );
-   
+    
+    // Makes each name in the names array a button
     button.text(name);
     $("#buttons-view").append(button);
   }
 }
 
 $("#add-name").on("click", function(event){
+  
+  // Makes the submit button not restore to default
   event.preventDefault();
-  var artist = $("#name-input").val().trim();
-  names.push(artist);
+
+  //Grabs the users input
+  var name = $("#name-input").val().trim();
+  
+  //Puts the users input in the names array
+  names.push(name);
+
+  //Calls the function that creates the buttons so that it will make the user input a button as well
   renderButtons();
 });
 
-$(document).on("click", ".name", showArtistName);
-
+//Calls the function that creates the buttons
 renderButtons();
 	
 $("button").on("click", function() {
+  // Sets the gifs-div to empty 
+  $("#gifs-appear-here").empty();
+
   var name = $(this).attr("data-name");
+  
+  // Saves the API link in a variable
   var queryURL ="https://api.giphy.com/v1/gifs/search?api_key=7CE0qH3XM0cyJWgeLcJNfpmtwTcTn6d5&q="
-                  + name + "&limit=25&offset=0&rating=G&lang=en ";
-     
+                  + name + "&limit=25&offset=0&rating=G&lang=en";
 
-$.ajax({
-  url: queryURL, 
-  method: "GET"
-})
-.then(function(response){
-  var results = response.data;
+  // Makes a request from the API
+  $.ajax({
+    url: queryURL, 
+    method: "GET"
+  })
+  
+  .then(function(response){
+    var results = response.data;
 
-  for (var i = 0; i < results.length; i++) {
-    var gifDiv = $("<div>");
+    // Loops through the API JSON
+    for (var i = 0; i < results.length; i++) {
 
-    var rating = results[i].rating;
+      var gifDiv = $("<div>");
+    
+      // Saving the rating from the API in a variable called rating
+      var rating = results[i].rating;
 
-    var p = $("<p>").text("Rating: " + rating);
+      // Creates a paragraph tag so the rating can be displayed
+      var p = $("<p>").text("Rating: " + rating);
 
-    var personImage = $("<img>");
-    personImage.attr("src", results[i].images.fixed_height.url);
+      // Creates an image tag for the GIFS
+      var personImage = $("<img>");
+    
+      // Creates a class for the image tag
+      personImage.addClass("gifImage");
 
-    gifDiv.prepend(p);
-    gifDiv.prepend(personImage);
+      // Gives the source of the GIFS and makes it still from the start
+      personImage.attr("src", results[i].images.fixed_height_still.url);
+    
+      // Creates the data-state to still
+      personImage.attr("data-state", "still");
 
-    $("#gifs-appear-here").prepend(gifDiv);
-  }
- 
+      // Adds the data animate data-attribute to the image tags  
+      personImage.attr("data-still", results[i].images.fixed_height_still.url);
 
- 
+      // Adds the data animate data-attribute to the image tags  
+      personImage.attr("data-animate", results[i].images.fixed_height.url);
 
-});
+      // Adds the rating paragraph tag and the GIFS before the GIFDIV
+      gifDiv.prepend(p);
+      gifDiv.prepend(personImage);
+    
+      // Places the GIFS under the div 
+      $("#gifs-appear-here").prepend(gifDiv);
+    }
+  
+    $('.gifImage').on("click", function(){
+    
+      // Grabs the data-attributes and saves them in a variable
+      var state = $(this).attr("data-state");
+      var animate = $(this).attr("data-animate")
+      var still = $(this).attr("data-still")
 
-
-
-
+      // If statement for if the state is still and not animating
+      if(state === 'still'){
+        $(this).attr("src", animate);
+        $(this).attr("data-state", 'animate');
+      }
+      //Else-If statement if the state is aniimating and not still
+      else if(state === 'animate'){
+        $(this).attr('src', still)
+        $(this).attr('data-state', 'still')
+      }
+    })
+  
+  });
 });
 
