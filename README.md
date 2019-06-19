@@ -1,5 +1,6 @@
 ![](assets/images/giftastic.PNG)
 
+## Overview
  A website that uses the GIPHY API to make a dynamic web page that populates with gifs.
  
  ## Tools/Languages Used
