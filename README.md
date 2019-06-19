@@ -1,4 +1,4 @@
-![GitHub Logo](assets/images/giftastic.png)
+![](assets/images/giftastic.PNG)
 
  A website that uses the GIPHY API to make a dynamic web page that populates with gifs.
  
