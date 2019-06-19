@@ -47,7 +47,8 @@ $("#add-name").on("click", function(event){
 //Calls the function that creates the buttons
 renderButtons();
 	
-$("button").on("click", function() {
+$(".name").on("click", function() {
+  
   // Sets the gifs-div to empty 
   $("#gifs-appear-here").empty();
 
@@ -81,7 +82,7 @@ $("button").on("click", function() {
       var personImage = $("<img>");
     
       // Creates a class for the image tag
-      personImage.addClass("gifImage");
+      personImage.addClass("gifImage ");
 
       // Gives the source of the GIFS and makes it still from the start
       personImage.attr("src", results[i].images.fixed_height_still.url);
@@ -102,7 +103,7 @@ $("button").on("click", function() {
       // Places the GIFS under the div 
       $("#gifs-appear-here").prepend(gifDiv);
     }
-  
+     
     $('.gifImage').on("click", function(){
     
       // Grabs the data-attributes and saves them in a variable
@@ -110,12 +111,12 @@ $("button").on("click", function() {
       var animate = $(this).attr("data-animate")
       var still = $(this).attr("data-still")
 
-      // If statement for if the state is still and not animating
+      // If statement for if the state is still and not animating then animate
       if(state === 'still'){
         $(this).attr("src", animate);
         $(this).attr("data-state", 'animate');
       }
-      //Else-If statement if the state is aniimating and not still
+      //Else-If statement if the state is aniimating and not still then change to still
       else if(state === 'animate'){
         $(this).attr('src', still)
         $(this).attr('data-state', 'still')
